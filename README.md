@@ -16,7 +16,7 @@
 
 | Component | Actual details |
 |---|---|
-| Laptop make / model | [ FILL IN ] |
+| Laptop make / model | Not yet identified |
 | Host OS and version | Windows 10 Home Single Language (version 2009) |
 | Processor | 11th Gen Intel Core i5-11400H @ 2.70 GHz |
 | CPU architecture | x64 (64-bit) |
@@ -44,7 +44,7 @@ Host laptop
     |
 Oracle VirtualBox
     |
-NAT Network: [ FILL IN network name ]
+NAT Network: Name not yet verified
 Subnet: 10.0.0.0/24
     |
 Kali Linux VM
@@ -62,11 +62,11 @@ IP: 10.0.0.2/24
 | Guest architecture | x86_64 |
 | Allocated RAM | Approximately 2 GiB (1.9 GiB visible in guest) |
 | Allocated CPU cores | 2 |
-| Virtual disk size and format | [ FILL IN ] |
-| Network adapter | [ FILL IN ] |
+| Virtual disk size and format | Not yet recorded |
+| Network adapter | `eth0` in Kali; VirtualBox adapter type not yet verified |
 | Attached to | NAT Network |
-| NAT Network name | [ FILL IN ] |
-| Adapter model | [ FILL IN ] |
+| NAT Network name | Not yet recorded in VirtualBox settings |
+| Adapter model | Not yet verified |
 
 **Evidence:** `screenshots/03-kali-vm-summary.png` and `screenshots/04-kali-network-adapter.png`
 
@@ -88,9 +88,15 @@ ip route
 cat /etc/resolv.conf
 ```
 
-Paste a short, sanitized output or describe the result here:
+Observed output:
 
-[ FILL IN ]
+```text
+eth0 UP 10.0.0.2/24
+ default via 10.0.0.1 dev eth0
+ 10.0.0.0/24 dev eth0 src 10.0.0.2
+```
+
+DNS resolver and static/DHCP method remain unverified.
 
 **Evidence:** `screenshots/05-kali-ip-address.png`
 
@@ -117,9 +123,9 @@ Test date: 2026-10-30
 
 | Feature | Configured mode | Tested result |
 |---|---|---|
-| Shared clipboard | [ FILL IN ] | [ FILL IN ] |
-| Drag and drop | [ FILL IN ] | [ FILL IN ] |
-| Guest Additions / integration tools version | [ FILL IN ] | [ FILL IN ] |
+| Shared clipboard | Not yet verified | Not yet tested |
+| Drag and drop | Not yet verified | Not yet tested |
+| Guest Additions / integration tools version | Not yet recorded | Not yet tested |
 
 For the assignment, configure clipboard and drag-and-drop in the VM settings. Record the direction selected (for example, Bidirectional) and test it rather than relying only on the setting being selected.
 
@@ -131,13 +137,13 @@ The assignment asks for the host `/downloads` folder to be shared with the Kali 
 
 | Setting | Actual value |
 |---|---|
-| Host folder path | [ FILL IN ] |
-| VirtualBox share name | [ FILL IN ] |
-| Auto-mount | [ FILL IN ] |
-| Make permanent | [ FILL IN ] |
-| Guest mount location | [ FILL IN ] |
-| Read-only | [ FILL IN ] |
-| Guest access test | [ FILL IN ] |
+| Host folder path | Not yet configured / verified |
+| VirtualBox share name | Not yet configured / verified |
+| Auto-mount | Not yet verified |
+| Make permanent | Not yet verified |
+| Guest mount location | Not yet verified |
+| Read-only | Not yet verified |
+| Guest access test | Not yet tested |
 
 **Evidence:** `screenshots/08-shared-folder-settings.png` and `screenshots/09-shared-folder-in-kali.png`
 
@@ -145,10 +151,10 @@ The assignment asks for the host `/downloads` folder to be shared with the Kali 
 
 | Field | Actual value |
 |---|---|
-| Snapshot name | [ FILL IN ] |
-| Date created | [ FILL IN ] |
-| VM state | [ FILL IN ] |
-| Notes | [ FILL IN ] |
+| Snapshot name | Not yet recorded |
+| Date created | Not yet recorded |
+| VM state | Not yet recorded |
+| Notes | Snapshot creation not yet confirmed |
 
 **Evidence:** `screenshots/10-vm-snapshot.png`
 
@@ -158,7 +164,7 @@ Document only problems that actually occurred during your setup. Include symptom
 
 | Problem / symptom | Investigation | Solution applied | Verified outcome |
 |---|---|---|---|
-| [ FILL IN ] | [ FILL IN ] | [ FILL IN ] | [ FILL IN ] |
+| No setup issue reported so far | — | — | — |
 | [ FILL IN ] | [ FILL IN ] | [ FILL IN ] | [ FILL IN ] |
 | [ FILL IN ] | [ FILL IN ] | [ FILL IN ] | [ FILL IN ] |
 
@@ -166,11 +172,11 @@ More detailed notes: `troubleshooting/issues-and-solutions.md`
 
 ## 11. Final verification checklist
 
-- [ ] VirtualBox installed; version recorded
-- [ ] Kali Linux installed and boots
+- [x] VirtualBox installed; version recorded (7.2.14r174565)
+- [x] Kali Linux installed and boots (2026.3)
 - [ ] NAT Network created with subnet `10.0.0.0/24`
-- [ ] Kali configured with `10.0.0.2/24`
-- [ ] Kali internet access tested
+- [x] Kali configured with `10.0.0.2/24`
+- [x] Kali internet access tested (IP ping and hostname ping passed)
 - [ ] Clipboard sharing configured and tested
 - [ ] Drag-and-drop configured and tested
 - [ ] Host `/downloads` folder shared and accessible in Kali
@@ -181,7 +187,7 @@ More detailed notes: `troubleshooting/issues-and-solutions.md`
 
 ## 12. Learning outcomes
 
-[ FILL IN — In your own words, describe what you learned about VirtualBox, virtualization, NAT networking, IP addressing, Kali Linux, shared folders, and troubleshooting. ]
+Initial observations: configured Kali Linux 2026.3 in VirtualBox 7.2.14; identified its `10.0.0.2/24` address and `10.0.0.1` default gateway; verified outbound IP connectivity and hostname resolution. Additional learning notes will be added after completing shared folders, integration features, and snapshots.
 
 ## Safety and scope
 
