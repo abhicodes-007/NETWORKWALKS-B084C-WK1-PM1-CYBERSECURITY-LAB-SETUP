@@ -4,9 +4,9 @@ Fill this file using the actual VirtualBox and Kali configuration.
 
 | Field | Actual value |
 |---|---|
-| VirtualBox NAT Network name | Not yet recorded |
+| VirtualBox NAT Network name | `NatNetwork` |
 | IPv4 network / prefix | `10.0.0.0/24` (observed from Kali route) |
-| DHCP enabled | Not yet confirmed |
+| DHCP enabled | Enabled |
 | Kali interface | `eth0` |
 | Kali IPv4 / prefix | `10.0.0.2/24` |
 | Default gateway | `10.0.0.1` |
@@ -30,4 +30,4 @@ Observed from Kali:
 - `ping -c 4 8.8.8.8`: 4 packets received, 0% packet loss.
 - `ping -c 4 google.com`: hostname resolved and 4 packets received, 0% packet loss.
 
-Still to verify in VirtualBox: NAT Network name, DHCP setting, and the DNS resolver configured in the guest.
+The VirtualBox NAT Network settings screenshot confirms the network name is `NatNetwork`, the IPv4 prefix is `10.0.0.0/24`, and DHCP is enabled. The DNS resolver configured inside Kali has not yet been recorded.
