@@ -123,13 +123,13 @@ Test date: 2026-10-30
 
 | Feature | Configured mode | Tested result |
 |---|---|---|
-| Shared clipboard | Not yet verified | Not yet tested |
-| Drag and drop | Not yet verified | Not yet tested |
+| Shared clipboard | Bidirectional (shown in VM settings) | Configured; functional transfer test not yet shown |
+| Drag and drop | Bidirectional (shown in VM settings) | Configured; functional transfer test not yet shown |
 | Guest Additions / integration tools version | Not yet recorded | Not yet tested |
 
 For the assignment, configure clipboard and drag-and-drop in the VM settings. Record the direction selected (for example, Bidirectional) and test it rather than relying only on the setting being selected.
 
-**Evidence:** `screenshots/07-clipboard-drag-drop-settings.png`
+**Evidence:** `screenshots/07-clipboard-drag-drop-settings.png` (Bidirectional selected for both features; functional transfer still to be tested).
 
 ## 8. Shared folder
 
@@ -137,15 +137,15 @@ The assignment asks for the host `/downloads` folder to be shared with the Kali 
 
 | Setting | Actual value |
 |---|---|
-| Host folder path | Not yet configured / verified |
-| VirtualBox share name | Not yet configured / verified |
-| Auto-mount | Not yet verified |
+| Host folder path | Windows host folder; exact path not shown |
+| VirtualBox share name | Appears to be `downloads` based on guest mount path `/media/sf_downloads` |
+| Auto-mount | Guest mount is present at `/media/sf_downloads`; VirtualBox auto-mount checkbox not shown |
 | Make permanent | Not yet verified |
-| Guest mount location | Not yet verified |
+| Guest mount location | `/media/sf_downloads` |
 | Read-only | Not yet verified |
-| Guest access test | Not yet tested |
+| Guest access test | Passed — `ls -la /media/sf_downloads` displayed host files |
 
-**Evidence:** `screenshots/08-shared-folder-settings.png` and `screenshots/09-shared-folder-in-kali.png`
+**Evidence:** `screenshots/07-clipboard-drag-drop-settings.png` and `screenshots/09-shared-folder-in-kali.png`. The guest mount and file listing are confirmed; the host-side share configuration screenshot is still required.
 
 ## 9. VM snapshot
 
@@ -177,9 +177,9 @@ More detailed notes: `troubleshooting/issues-and-solutions.md`
 - [ ] NAT Network created with subnet `10.0.0.0/24`
 - [x] Kali configured with `10.0.0.2/24`
 - [x] Kali internet access tested (IP ping and hostname ping passed)
-- [ ] Clipboard sharing configured and tested
-- [ ] Drag-and-drop configured and tested
-- [ ] Host `/downloads` folder shared and accessible in Kali
+- [x] Clipboard sharing configured as Bidirectional (transfer test pending)
+- [x] Drag-and-drop configured as Bidirectional (transfer test pending)
+- [x] Shared folder accessible in Kali at `/media/sf_downloads`
 - [ ] VM snapshot created
 - [ ] Actual screenshots added to `screenshots/`
 - [ ] All placeholders completed or marked not applicable
