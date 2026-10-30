@@ -25,7 +25,7 @@ cat /etc/resolv.conf
 
 Observed from Kali:
 - `eth0` is UP with IPv4 address `10.0.0.2/24`.
-- Default route is via `10.0.0.1`.
+- Default route is via `10.0.0.1` (gateway reachability by ping has not been independently tested).
 - Connected route is `10.0.0.0/24`.
 - `ping -c 4 8.8.8.8`: 4 packets received, 0% packet loss.
 - `ping -c 4 google.com`: hostname resolved and 4 packets received, 0% packet loss.
