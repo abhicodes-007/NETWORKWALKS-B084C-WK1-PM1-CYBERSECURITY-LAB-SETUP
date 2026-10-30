@@ -57,7 +57,7 @@ IP: 10.0.0.2/24
 
 | Setting | Actual value |
 |---|---|
-| VM name | [ FILL IN ] |
+| VM name | `kali-linux-2026.3-virtualbox-amd64` |
 | Kali version / image | Kali GNU/Linux Rolling 2026.3 |
 | Guest architecture | x86_64 |
 | Allocated RAM | Approximately 2 GiB (1.9 GiB visible in guest) |
@@ -66,7 +66,7 @@ IP: 10.0.0.2/24
 | Network adapter | Intel PRO/1000 MT Desktop (82540EM) |
 | Attached to | NAT Network |
 | NAT Network name | `NatNetwork` |
-| Adapter model | Not yet verified |
+| Adapter model | Intel PRO/1000 MT Desktop (82540EM) |
 
 **Evidence:** `screenshots/03-kali-vm-summary.png` and `screenshots/04-kali-network-adapter.png`
 
