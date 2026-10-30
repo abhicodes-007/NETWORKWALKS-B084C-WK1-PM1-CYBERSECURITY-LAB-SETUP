@@ -17,12 +17,12 @@
 | Component | Actual details |
 |---|---|
 | Laptop make / model | [ FILL IN ] |
-| Host OS and version | [ FILL IN ] |
-| Processor | [ FILL IN ] |
-| CPU architecture | [ FILL IN ] |
-| Physical memory (RAM) | [ FILL IN ] |
-| Storage type / free space | [ FILL IN ] |
-| VirtualBox version | [ FILL IN ] |
+| Host OS and version | Windows 10 Home Single Language (version 2009) |
+| Processor | 11th Gen Intel Core i5-11400H @ 2.70 GHz |
+| CPU architecture | x64 (64-bit) |
+| Physical memory (RAM) | 16 GB (16,931,676,160 bytes reported) |
+| Storage type / free space | 256 GB Kingston NVMe SSD + 1 TB HDD (free space not recorded) |
+| VirtualBox version | 7.2.14r174565 |
 
 **Evidence:** `screenshots/01-host-system-specs.png`
 
@@ -58,10 +58,10 @@ IP: 10.0.0.2/24
 | Setting | Actual value |
 |---|---|
 | VM name | [ FILL IN ] |
-| Kali version / image | [ FILL IN ] |
-| Guest architecture | [ FILL IN ] |
-| Allocated RAM | [ FILL IN ] |
-| Allocated CPU cores | [ FILL IN ] |
+| Kali version / image | Kali GNU/Linux Rolling 2026.3 |
+| Guest architecture | x86_64 |
+| Allocated RAM | Approximately 2 GiB (1.9 GiB visible in guest) |
+| Allocated CPU cores | 2 |
 | Virtual disk size and format | [ FILL IN ] |
 | Network adapter | [ FILL IN ] |
 | Attached to | NAT Network |
@@ -74,11 +74,11 @@ IP: 10.0.0.2/24
 
 | Parameter | Observed value |
 |---|---|
-| Interface name | [ FILL IN ] |
-| IPv4 address / prefix | [ FILL IN ] |
-| Default gateway | [ FILL IN ] |
-| DNS resolver | [ FILL IN ] |
-| Configuration method (static / DHCP) | [ FILL IN ] |
+| Interface name | `eth0` |
+| IPv4 address / prefix | `10.0.0.2/24` |
+| Default gateway | `10.0.0.1` |
+| DNS resolver | Not recorded; hostname resolution succeeded |
+| Configuration method (static / DHCP) | Not yet confirmed |
 
 Commands used to inspect the network:
 
@@ -100,16 +100,16 @@ Record actual results and date/time. A successful ping to an IP tests IP connect
 
 | Test | Command | Actual result |
 |---|---|---|
-| Interface and address | `ip -br addr` | [ FILL IN ] |
-| Routing table | `ip route` | [ FILL IN ] |
-| Gateway reachability | `ping -c 4 [ GATEWAY ]` | [ FILL IN ] |
-| Internet by IP | `ping -c 4 1.1.1.1` | [ FILL IN ] |
-| DNS resolution | `getent hosts example.com` | [ FILL IN ] |
-| Internet by hostname | `ping -c 4 example.com` | [ FILL IN ] |
+| Interface and address | `ip -br addr` | Passed — `eth0` has `10.0.0.2/24` |
+| Routing table | `ip route` | Passed — default route via `10.0.0.1` |
+| Gateway reachability | `ping -c 4 10.0.0.1` | Not separately tested yet |
+| Internet by IP | `ping -c 4 8.8.8.8` | Passed — 4/4 replies, 0% loss; avg. 18.497 ms |
+| DNS resolution | `ping -c 4 google.com` | Passed — hostname resolved to `142.251.221.174` |
+| Internet by hostname | `ping -c 4 google.com` | Passed — 4/4 replies, 0% loss; avg. 19.573 ms |
 
-Overall internet status: [ FILL IN — Working / Not working / Partially working ]
+Overall internet status: Working (IP connectivity and DNS/hostname connectivity passed).
 
-Test date: [ FILL IN ]
+Test date: 2026-10-30
 
 **Evidence:** `screenshots/06-connectivity-tests.png`
 
