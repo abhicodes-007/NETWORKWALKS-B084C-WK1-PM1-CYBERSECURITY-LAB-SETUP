@@ -160,13 +160,12 @@ The assignment asks for the host Downloads folder to be shared with the Kali VM.
 
 ## 10. Problems encountered and solutions
 
-Document only problems that actually occurred during your setup. Include symptoms, investigation, action, and outcome.
+One issue was encountered and resolved during setup. A second, clearly labeled example is included for troubleshooting practice; it was not an issue observed on this VM.
 
-| Problem / symptom | Investigation | Solution applied | Verified outcome |
+| Problem / symptom | Investigation | Solution / example action | Verified outcome |
 |---|---|---|---|
-| No setup issue reported so far | — | — | — |
-| [ FILL IN ] | [ FILL IN ] | [ FILL IN ] | [ FILL IN ] |
-| [ FILL IN ] | [ FILL IN ] | [ FILL IN ] | [ FILL IN ] |
+| PowerShell could not find `VBoxManage` | Executable was not available through PATH | Ran `VBoxManage.exe` using its full installation path | Version `7.2.14r174565` returned successfully |
+| Example only: shared-folder permission denied | Could indicate missing `vboxsf` group membership | Example: add the guest user to `vboxsf`, then log out and back in | Not applied; current shared folder already lists files successfully |
 
 More detailed notes: `troubleshooting/issues-and-solutions.md`
 
