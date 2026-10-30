@@ -108,7 +108,7 @@ Record actual results and date/time. A successful ping to an IP tests IP connect
 |---|---|---|
 | Interface and address | `ip -br addr` | Passed — `eth0` has `10.0.0.2/24` |
 | Routing table | `ip route` | Passed — default route via `10.0.0.1` |
-| Gateway reachability | `ping -c 4 10.0.0.1` | Not separately tested yet |
+| Gateway reachability | `ping -c 4 10.0.0.1` | Gateway configured as `10.0.0.1`; ICMP reachability not independently verified |
 | Internet by IP | `ping -c 4 8.8.8.8` | Passed — 4/4 replies, 0% loss; avg. 18.497 ms |
 | DNS resolution | `ping -c 4 google.com` | Passed — hostname resolved to `142.251.221.174` |
 | Internet by hostname | `ping -c 4 google.com` | Passed — 4/4 replies, 0% loss; avg. 19.573 ms |
