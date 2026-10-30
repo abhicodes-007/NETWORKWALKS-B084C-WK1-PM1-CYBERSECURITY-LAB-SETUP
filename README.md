@@ -16,8 +16,8 @@
 
 | Component | Actual details |
 |---|---|
-| Laptop make / model | Not yet identified |
-| Host OS and version | Windows 10 Home Single Language (version 2009) |
+| Laptop make / model | Acer Nitro AN515-57 |
+| Host OS and version | Conflicting evidence: PowerShell reported Windows 10 Home Single Language; System Information screenshot shows Windows 11 Home Single Language, build 26200. Confirmation required. |
 | Processor | 11th Gen Intel Core i5-11400H @ 2.70 GHz |
 | CPU architecture | x64 (64-bit) |
 | Physical memory (RAM) | 16 GB (16,931,676,160 bytes reported) |
@@ -63,9 +63,9 @@ IP: 10.0.0.2/24
 | Allocated RAM | Approximately 2 GiB (1.9 GiB visible in guest) |
 | Allocated CPU cores | 2 |
 | Virtual disk size and format | Not yet recorded |
-| Network adapter | `eth0` in Kali; VirtualBox adapter type not yet verified |
+| Network adapter | Intel PRO/1000 MT Desktop (82540EM) |
 | Attached to | NAT Network |
-| NAT Network name | Not yet recorded in VirtualBox settings |
+| NAT Network name | `NatNetwork` |
 | Adapter model | Not yet verified |
 
 **Evidence:** `screenshots/03-kali-vm-summary.png` and `screenshots/04-kali-network-adapter.png`
