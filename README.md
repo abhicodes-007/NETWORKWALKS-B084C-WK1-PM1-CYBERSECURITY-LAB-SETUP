@@ -1,6 +1,6 @@
 # WK1-PM1 — Cybersecurity Lab Setup
 
- > **Documentation status:** Based on the host and Kali evidence supplied for this lab. A few technical details that were not visible in the evidence are explicitly marked as unverified.
+> **Status:** Lab setup completed and verified against the available host, VirtualBox, and Kali Linux evidence. Any values not available from the evidence are explicitly identified below.
 
 ## 1. Project details
 
@@ -17,38 +17,42 @@
 | Component | Actual details |
 |---|---|
 | Laptop make / model | Acer Nitro AN515-57 |
-| Host OS and version | Windows 11 Home Single Language, version 10.0.26200, build 26200 (latest System Information screenshot) |
+| Host OS and version | Windows 11 Home Single Language, version 10.0.26200, build 26200 |
 | Processor | 11th Gen Intel Core i5-11400H @ 2.70 GHz |
 | CPU architecture | x64 (64-bit) |
 | Physical memory (RAM) | 16 GB (16,931,676,160 bytes reported) |
-| Storage type / free space | 256 GB Kingston NVMe SSD + 1 TB HDD (free space not recorded) |
+| Storage | 256 GB Kingston NVMe SSD + 1 TB Seagate HDD |
+| Available storage space | Not recorded |
 | VirtualBox version | 7.2.14r174565 |
 
 **Evidence:** `screenshots/01-host-system-specs.png`
 
-## 3. Lab objective and topology
+## 3. Lab objective and network topology
 
-Set up a virtual cybersecurity testing environment with Oracle VirtualBox as the hypervisor and Kali Linux as the attacking machine.
-
-Expected network from the assignment:
+The objective was to configure a virtual cybersecurity lab using Oracle VirtualBox as the hypervisor and Kali Linux as the guest machine.
 
 - Network type: **NAT Network**
+- NAT Network name: `NatNetwork`
 - IPv4 subnet: **10.0.0.0/24**
 - Kali Linux address: **10.0.0.2/24**
-- Internet access from Kali: required
+- Default gateway: **10.0.0.1**
+- DHCP: **Enabled**
+- Internet connectivity: **Verified**
 
-Topology (document any differences in the actual implementation):
+Topology:
 
 ```text
-Host laptop
-    |
-Oracle VirtualBox
-    |
-NAT Network: `NatNetwork`
+Host laptop (Windows 11)
+        |
+Oracle VirtualBox 7.2.14
+        |
+NAT Network: NatNetwork
 Subnet: 10.0.0.0/24
-    |
+Gateway: 10.0.0.1
+        |
 Kali Linux VM
-IP: 10.0.0.2/24
+Interface: eth0
+Address: 10.0.0.2/24 (DHCP)
 ```
 
 **Evidence:** `screenshots/02-nat-network-settings.png`
@@ -58,136 +62,143 @@ IP: 10.0.0.2/24
 | Setting | Actual value |
 |---|---|
 | VM name | `kali-linux-2026.3-virtualbox-amd64` |
-| Kali version / image | Kali GNU/Linux Rolling 2026.3 |
+| Guest OS | Kali GNU/Linux Rolling 2026.3 |
 | Guest architecture | x86_64 |
 | Allocated RAM | Approximately 2 GiB (1.9 GiB visible in guest) |
 | Allocated CPU cores | 2 |
-| Virtual disk size and format | 80.09 GB VDI (VirtualBox summary) |
+| Virtual disk | 80.09 GB VDI |
 | Network adapter | Intel PRO/1000 MT Desktop (82540EM) |
-| Attached to | NAT Network |
+| Attached network | NAT Network |
 | NAT Network name | `NatNetwork` |
-| Adapter model | Intel PRO/1000 MT Desktop (82540EM) |
 
 **Evidence:** `screenshots/03-kali-vm-summary.png` and `screenshots/04-kali-network-adapter.png`
 
 ## 5. Kali network configuration
 
-| Parameter | Observed value |
+The following values were verified using `nmcli`, `ip` commands, and the Kali terminal.
+
+| Parameter | Verified value |
 |---|---|
-| Interface name | `eth0` |
+| Network interface | `eth0` |
+| IPv4 method | Automatic (DHCP) |
 | IPv4 address / prefix | `10.0.0.2/24` |
 | Default gateway | `10.0.0.1` |
-| DNS resolver | Not recorded; hostname resolution succeeded |
-| Configuration method (static / DHCP) | Not yet confirmed |
+| DNS in NetworkManager connection profile | `10.0.0.1` |
+| Connection profile | `Wired connection 1` |
 
-Commands used to inspect the network:
+Command used:
 
 ```bash
-ip -br addr
-ip route
-cat /etc/resolv.conf
+nmcli -f ipv4.method,ipv4.addresses,ipv4.gateway,ipv4.dns connection show "Wired connection 1"
 ```
 
-Observed output:
+Observed configuration:
 
 ```text
-eth0 UP 10.0.0.2/24
- default via 10.0.0.1 dev eth0
- 10.0.0.0/24 dev eth0 src 10.0.0.2
+ipv4.method:     auto
+ipv4.addresses:  10.0.0.2/24
+ipv4.gateway:    10.0.0.1
+ipv4.dns:        10.0.0.1
 ```
 
-DNS resolver and static/DHCP method remain unverified.
+The generated `/etc/resolv.conf` output also displayed additional nameserver entries (`1.1.1.1`, `0.0.0.1`, and `1.1.1.2`). The NetworkManager connection profile itself reports `10.0.0.1` as its configured DNS value. Hostname resolution was tested successfully. The unusual `0.0.0.1` entry is recorded as observed and has not been independently validated.
 
-**Evidence:** `screenshots/05-kali-ip-address.png`
+**Evidence:** `screenshots/05-kali-ip-address.png` and the terminal verification captured on 30 October 2026.
 
-## 6. Connectivity tests
+## 6. Connectivity verification
 
-Record actual results and date/time. A successful ping to an IP tests IP connectivity; hostname resolution should be tested separately.
-
-| Test | Command | Actual result |
+| Test | Command | Result |
 |---|---|---|
-| Interface and address | `ip -br addr` | Passed — `eth0` has `10.0.0.2/24` |
+| Interface and address | `ip -br addr` | Passed — `eth0` is UP with `10.0.0.2/24` |
 | Routing table | `ip route` | Passed — default route via `10.0.0.1` |
-| Gateway reachability | `ping -c 4 10.0.0.1` | Gateway configured as `10.0.0.1`|
-| Internet by IP | `ping -c 4 8.8.8.8` | Passed — 4/4 replies, 0% loss; avg. 18.497 ms |
-| DNS resolution | `ping -c 4 google.com` | Passed — hostname resolved to `142.251.221.174` |
-| Internet by hostname | `ping -c 4 google.com` | Passed — 4/4 replies, 0% loss; avg. 19.573 ms |
+| Gateway reachability | `ping -c 4 10.0.0.1` | Three replies received; command was suspended before the fourth reply |
+| Internet by IP | `ping -c 4 8.8.8.8` | Passed — 4/4 replies, 0% packet loss; average 18.497 ms |
+| DNS / hostname resolution | `ping -c 4 google.com` | Passed — resolved to `142.251.221.174` |
+| Internet by hostname | `ping -c 4 google.com` | Passed — 4/4 replies, 0% packet loss; average 19.573 ms |
 
-Overall internet status: Working (IP connectivity and DNS/hostname connectivity passed).
+**Conclusion:** Internet connectivity from Kali is working. The default gateway is configured correctly and responded to the three observed ICMP requests; a complete four-packet gateway test was not recorded.
 
-Test date: 2026-10-30
+Test date: **30 October 2026**
 
-**Evidence:** `screenshots/06-connectivity-tests.png`
+**Evidence:** `screenshots/06-connectivity-tests.png` and the later terminal verification.
 
-## 7. Clipboard and drag-and-drop
+## 7. Shared clipboard and drag-and-drop
 
-| Feature | Configured mode | Tested result |
+| Feature | Configured mode | Functional test |
 |---|---|---|
-| Shared clipboard | Bidirectional | Passed — actual copy/paste tested successfully |
-| Drag and drop | Bidirectional | Passed — actual drag-and-drop tested successfully |
-| Guest Additions / integration tools version | Not yet recorded | Not yet tested |
+| Shared clipboard | Bidirectional | Passed — actual copy/paste tested |
+| Drag and drop | Bidirectional | Passed — actual drag-and-drop tested |
 
-For the assignment, configure clipboard and drag-and-drop in the VM settings. Record the direction selected (for example, Bidirectional) and test it rather than relying only on the setting being selected.
+Both features were configured as Bidirectional in the VirtualBox VM settings and were functionally tested between host and guest. The exact Guest Additions version was not recorded.
 
-**Evidence:** `screenshots/07-clipboard-drag-drop-settings.png` (Bidirectional selected for both features; functional transfer still to be tested).
+**Evidence:** `screenshots/07-clipboard-drag-drop-settings.png` and user-confirmed functional tests.
 
 ## 8. Shared folder
 
-The assignment asks for the host Downloads folder to be shared with the Kali VM. The host path is documented with the Windows account name redacted for privacy.
+The host Downloads folder was shared with the Kali guest.
 
 | Setting | Actual value |
 |---|---|
-| Host folder path | `C:\\Users\\[redacted]\\Downloads` (username redacted for public documentation) |
-| VirtualBox share name | `downloads` (guest mount `/media/sf_downloads`) |
-| Auto-mount | Enabled (VirtualBox Shared Folders list shows Auto Mount: Yes) |
-| Make permanent | Listed under Machine Folders (persistent VM folder entry) |
-| Guest mount location | `/media/sf_downloads` |
-| Read-only | No — access is shown as Full |
+| Host folder | `C:\Users\[redacted]\Downloads` |
+| VirtualBox share name | `downloads` |
+| Auto-mount | Enabled |
+| Folder type | Machine Folder |
+| Access | Full access (not read-only) |
+| Guest mount point | `/media/sf_downloads` |
 | Guest access test | Passed — `ls -la /media/sf_downloads` displayed host files |
 
-**Evidence:** `screenshots/08-shared-folder-settings.png` and `screenshots/09-shared-folder-in-kali.png`. The host-side share is a Machine Folder, has Full access, and Auto Mount is enabled.
+The Windows account name is redacted in this public documentation.
+
+**Evidence:** `screenshots/08-shared-folder-settings.png` and `screenshots/09-shared-folder-in-kali.png`
 
 ## 9. VM snapshot
 
 | Field | Actual value |
 |---|---|
 | Snapshot name | `Week 1 Kali Setup` |
-| Date created | 30 October 2026, 12:04 (shown in VirtualBox) |
-| VM state | Snapshot tree shows `Current State (changed)` after the snapshot |
-| Notes | Snapshot exists and is named `Week 1 Kali Setup` |
+| Date created | 30 October 2026, 12:04 |
+| Snapshot state | Snapshot exists; VirtualBox showed Current State (changed) afterward |
 
 **Evidence:** `screenshots/10-vm-snapshot.png`
 
 ## 10. Problems encountered and solutions
 
-One issue was encountered and resolved during setup. A second, clearly labeled example is included for troubleshooting practice; it was not an issue observed on this VM.
-
-| Problem / symptom | Investigation | Solution / example action | Verified outcome |
+| Problem / symptom | Investigation | Solution / action | Outcome |
 |---|---|---|---|
-| PowerShell could not find `VBoxManage` | Executable was not available through PATH | Ran `VBoxManage.exe` using its full installation path | Version `7.2.14r174565` returned successfully |
-| Example only: shared-folder permission denied | Could indicate missing `vboxsf` group membership | Example: add the guest user to `vboxsf`, then log out and back in | Not applied; current shared folder already lists files successfully |
+| PowerShell could not find `VBoxManage` | Executable was not available through PATH | Ran `VBoxManage.exe` using its full installation path | VirtualBox version `7.2.14r174565` returned successfully |
+| Example: shared-folder permission denied | Could indicate missing `vboxsf` group membership | Example only: add the guest user to `vboxsf`, then log out and back in | Not encountered on this VM; shared folder access was verified |
 
-More detailed notes: `troubleshooting/issues-and-solutions.md`
+Additional notes: `troubleshooting/issues-and-solutions.md`.
 
 ## 11. Final verification checklist
 
-- [x] VirtualBox installed; version recorded (7.2.14r174565)
-- [x] Kali Linux installed and boots (2026.3)
-- [x] NAT Network created with subnet `10.0.0.0/24` (`NatNetwork`, DHCP enabled)
-- [x] Kali configured with `10.0.0.2/24`
-- [x] Kali internet access tested (IP ping and hostname ping passed)
-- [x] Clipboard sharing configured as Bidirectional and actual copy/paste tested successfully
-- [x] Drag-and-drop configured as Bidirectional and actual file transfer tested successfully
-- [x] Shared folder accessible in Kali at `/media/sf_downloads`
-- [x] VM snapshot created (`Week 1 Kali Setup`, 30 October 2026)
-- [x] Screenshot evidence captured and cropped; evidence ZIP prepared for repository upload
-- [ ] Remaining unverified fields documented or confirmed
-- [ ] Sensitive information redacted before making repository public
+- [x] VirtualBox installed and version recorded.
+- [x] Kali Linux installed and boots.
+- [x] NAT Network created with subnet `10.0.0.0/24`.
+- [x] DHCP enabled on the NAT Network.
+- [x] Kali receives `10.0.0.2/24` through DHCP.
+- [x] Default gateway `10.0.0.1` configured and responds to observed ping requests.
+- [x] Internet connectivity tested by IP address.
+- [x] DNS resolution and internet connectivity tested by hostname.
+- [x] Shared clipboard configured as Bidirectional and copy/paste tested.
+- [x] Drag-and-drop configured as Bidirectional and tested.
+- [x] Host Downloads folder mounted and accessible in Kali.
+- [x] VM snapshot created.
+- [x] Screenshot evidence added to the repository.
+- [x] Unavailable details (such as host free disk space and Guest Additions version) are identified rather than guessed.
+- [x] Host account name redacted from the documented shared-folder path.
 
 ## 12. Learning outcomes
 
-Initial observations: configured Kali Linux 2026.3 in VirtualBox 7.2.14; identified its `10.0.0.2/24` address and `10.0.0.1` default gateway; verified outbound IP connectivity and hostname resolution. Additional learning notes will be added after completing shared folders, integration features, and snapshots.
+- Installed and configured Kali Linux 2026.3 as a VirtualBox guest.
+- Configured a VirtualBox NAT Network and verified DHCP addressing.
+- Inspected interface configuration, routing, gateway, and DNS settings using Linux networking commands.
+- Tested external IP connectivity and hostname resolution.
+- Configured and tested bidirectional clipboard and drag-and-drop integration.
+- Configured a persistent, auto-mounted shared folder and verified guest access.
+- Created a VirtualBox snapshot to preserve the configured lab state.
+- Documented configuration details, verification results, and evidence in GitHub.
 
 ## Safety and scope
 
-This environment is for authorized cybersecurity learning and testing. Only assess systems and networks for which you have explicit permission. Before publishing evidence, redact public IP addresses, credentials, tokens, personal usernames, serial numbers, and other sensitive information.
+This environment is intended for authorized cybersecurity learning and testing. Only assess systems and networks for which explicit permission has been granted. Before publishing evidence, redact credentials, tokens, personal usernames, serial numbers, public IP addresses, and other sensitive information.
