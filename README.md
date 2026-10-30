@@ -123,8 +123,8 @@ Test date: 2026-10-30
 
 | Feature | Configured mode | Tested result |
 |---|---|---|
-| Shared clipboard | Bidirectional (shown in VM settings) | Configured; functional transfer test not yet shown |
-| Drag and drop | Bidirectional (shown in VM settings) | Configured; functional transfer test not yet shown |
+| Shared clipboard | Bidirectional | Passed — actual copy/paste tested successfully |
+| Drag and drop | Bidirectional | Passed — actual drag-and-drop tested successfully |
 | Guest Additions / integration tools version | Not yet recorded | Not yet tested |
 
 For the assignment, configure clipboard and drag-and-drop in the VM settings. Record the direction selected (for example, Bidirectional) and test it rather than relying only on the setting being selected.
@@ -176,8 +176,8 @@ More detailed notes: `troubleshooting/issues-and-solutions.md`
 - [x] NAT Network created with subnet `10.0.0.0/24` (`NatNetwork`, DHCP enabled)
 - [x] Kali configured with `10.0.0.2/24`
 - [x] Kali internet access tested (IP ping and hostname ping passed)
-- [x] Clipboard sharing configured as Bidirectional (transfer test pending)
-- [x] Drag-and-drop configured as Bidirectional (transfer test pending)
+- [x] Clipboard sharing configured as Bidirectional and actual copy/paste tested successfully
+- [x] Drag-and-drop configured as Bidirectional and actual file transfer tested successfully
 - [x] Shared folder accessible in Kali at `/media/sf_downloads`
 - [x] VM snapshot created (`Week 1 Kali Setup`, 30 October 2026)
 - [x] Screenshot evidence captured and cropped; evidence ZIP prepared for repository upload
