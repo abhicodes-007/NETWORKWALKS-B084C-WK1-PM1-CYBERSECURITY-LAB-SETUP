@@ -1,15 +1,15 @@
 # WK1-PM1 — Cybersecurity Lab Setup
 
-> **Documentation status:** Fill-in template. Replace every `[ FILL IN ]` field with verified details from your own machine. Only mark a requirement complete after configuring and testing it. Do not upload someone else's screenshots or sample IP details.
+ > **Documentation status:** Based on the host and Kali evidence supplied for this lab. A few technical details that were not visible in the evidence are explicitly marked as unverified.
 
 ## 1. Project details
 
 | Field | Details |
 |---|---|
-| Student name | [ FILL IN ] |
+| Student name | Abhishek Deepak |
 | Batch / course | B084C |
 | Assignment | WK1-PM1 — Lab Setup |
-| Completion date | [ FILL IN ] |
+| Completion date | 30 October 2026 |
 | GitHub profile | https://github.com/abhicodes-007 |
 
 ## 2. Host laptop specifications
@@ -17,7 +17,7 @@
 | Component | Actual details |
 |---|---|
 | Laptop make / model | Acer Nitro AN515-57 |
-| Host OS and version | Conflicting evidence: PowerShell reported Windows 10 Home Single Language; System Information screenshot shows Windows 11 Home Single Language, build 26200. Confirmation required. |
+| Host OS and version | Windows 11 Home Single Language, version 10.0.26200, build 26200 (latest System Information screenshot) |
 | Processor | 11th Gen Intel Core i5-11400H @ 2.70 GHz |
 | CPU architecture | x64 (64-bit) |
 | Physical memory (RAM) | 16 GB (16,931,676,160 bytes reported) |
@@ -44,7 +44,7 @@ Host laptop
     |
 Oracle VirtualBox
     |
-NAT Network: Name not yet verified
+NAT Network: `NatNetwork`
 Subnet: 10.0.0.0/24
     |
 Kali Linux VM
@@ -62,7 +62,7 @@ IP: 10.0.0.2/24
 | Guest architecture | x86_64 |
 | Allocated RAM | Approximately 2 GiB (1.9 GiB visible in guest) |
 | Allocated CPU cores | 2 |
-| Virtual disk size and format | Not yet recorded |
+| Virtual disk size and format | 80.09 GB VDI (VirtualBox summary) |
 | Network adapter | Intel PRO/1000 MT Desktop (82540EM) |
 | Attached to | NAT Network |
 | NAT Network name | `NatNetwork` |
@@ -133,28 +133,28 @@ For the assignment, configure clipboard and drag-and-drop in the VM settings. Re
 
 ## 8. Shared folder
 
-The assignment asks for the host `/downloads` folder to be shared with the Kali VM. Record the exact host folder, VirtualBox share name, and guest mount path used.
+The assignment asks for the host Downloads folder to be shared with the Kali VM. The host path is documented with the Windows account name redacted for privacy.
 
 | Setting | Actual value |
 |---|---|
-| Host folder path | Windows host folder; exact path not shown |
-| VirtualBox share name | Appears to be `downloads` based on guest mount path `/media/sf_downloads` |
-| Auto-mount | Guest mount is present at `/media/sf_downloads`; VirtualBox auto-mount checkbox not shown |
-| Make permanent | Not yet verified |
+| Host folder path | `C:\\Users\\[redacted]\\Downloads` (username redacted for public documentation) |
+| VirtualBox share name | `downloads` (guest mount `/media/sf_downloads`) |
+| Auto-mount | Enabled (VirtualBox Shared Folders list shows Auto Mount: Yes) |
+| Make permanent | Listed under Machine Folders (persistent VM folder entry) |
 | Guest mount location | `/media/sf_downloads` |
-| Read-only | Not yet verified |
+| Read-only | No — access is shown as Full |
 | Guest access test | Passed — `ls -la /media/sf_downloads` displayed host files |
 
-**Evidence:** `screenshots/07-clipboard-drag-drop-settings.png` and `screenshots/09-shared-folder-in-kali.png`. The guest mount and file listing are confirmed; the host-side share configuration screenshot is still required.
+**Evidence:** `screenshots/08-shared-folder-settings.png` and `screenshots/09-shared-folder-in-kali.png`. The host-side share is a Machine Folder, has Full access, and Auto Mount is enabled.
 
 ## 9. VM snapshot
 
 | Field | Actual value |
 |---|---|
-| Snapshot name | Not yet recorded |
-| Date created | Not yet recorded |
-| VM state | Not yet recorded |
-| Notes | Snapshot creation not yet confirmed |
+| Snapshot name | `Week 1 Kali Setup` |
+| Date created | 30 October 2026, 12:04 (shown in VirtualBox) |
+| VM state | Snapshot tree shows `Current State (changed)` after the snapshot |
+| Notes | Snapshot exists and is named `Week 1 Kali Setup` |
 
 **Evidence:** `screenshots/10-vm-snapshot.png`
 
@@ -174,15 +174,15 @@ More detailed notes: `troubleshooting/issues-and-solutions.md`
 
 - [x] VirtualBox installed; version recorded (7.2.14r174565)
 - [x] Kali Linux installed and boots (2026.3)
-- [ ] NAT Network created with subnet `10.0.0.0/24`
+- [x] NAT Network created with subnet `10.0.0.0/24` (`NatNetwork`, DHCP enabled)
 - [x] Kali configured with `10.0.0.2/24`
 - [x] Kali internet access tested (IP ping and hostname ping passed)
 - [x] Clipboard sharing configured as Bidirectional (transfer test pending)
 - [x] Drag-and-drop configured as Bidirectional (transfer test pending)
 - [x] Shared folder accessible in Kali at `/media/sf_downloads`
-- [ ] VM snapshot created
-- [ ] Actual screenshots added to `screenshots/`
-- [ ] All placeholders completed or marked not applicable
+- [x] VM snapshot created (`Week 1 Kali Setup`, 30 October 2026)
+- [x] Screenshot evidence captured and cropped; evidence ZIP prepared for repository upload
+- [ ] Remaining unverified fields documented or confirmed
 - [ ] Sensitive information redacted before making repository public
 
 ## 12. Learning outcomes
