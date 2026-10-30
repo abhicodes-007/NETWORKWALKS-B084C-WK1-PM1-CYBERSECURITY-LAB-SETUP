@@ -1,0 +1,27 @@
+# Virtual machine disks and exports
+*.vdi
+*.vbox
+*.vbox-prev
+*.vmdk
+*.vhd
+*.vhdx
+*.qcow2
+*.ova
+*.ovf
+*.iso
+*.img
+
+# Logs and temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Credentials and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
